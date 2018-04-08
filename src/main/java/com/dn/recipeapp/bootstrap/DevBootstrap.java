@@ -4,14 +4,17 @@ import com.dn.recipeapp.domain.*;
 import com.dn.recipeapp.repositories.CategoryRepository;
 import com.dn.recipeapp.repositories.RecipeRepository;
 import com.dn.recipeapp.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.*;
 
 @Component
+@Slf4j
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private final CategoryRepository categoryRepository;
@@ -25,11 +28,14 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
         recipeRepository.saveAll(getRecipes());
+        log.debug("loading bootstrap data");
     }
 
     private List<Recipe> getRecipes() {
+
 
         List<Recipe> recipes = new ArrayList<>(2);
 
