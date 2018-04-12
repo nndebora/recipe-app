@@ -62,6 +62,7 @@ public class RecipeServiceImplTest {
 
         when(recipeService.listRecipes()).thenReturn(receipesData);
 
+
         Set<Recipe> recipes = recipeService.listRecipes();
 
         assertEquals(recipes.size(), 1);
@@ -69,4 +70,11 @@ public class RecipeServiceImplTest {
         verify(recipeRepository, never()).findById(anyLong());
     }
 
+    @Test
+    public void deletByIdTest() {
+        Long idToDelete = Long.valueOf(2L);
+        recipeService.deleteById(idToDelete);
+        verify(recipeRepository,times(1)).deleteById(anyLong());
+
+    }
 }
