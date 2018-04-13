@@ -5,7 +5,6 @@ import com.dn.recipeapp.converters.RecipeCommandToRecipe;
 import com.dn.recipeapp.converters.RecipeToRecipeCommand;
 import com.dn.recipeapp.domain.Recipe;
 import com.dn.recipeapp.repositories.RecipeRepository;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -15,7 +14,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 public class RecipeServiceImplTest {
@@ -77,4 +77,20 @@ public class RecipeServiceImplTest {
         verify(recipeRepository,times(1)).deleteById(anyLong());
 
     }
+
+    @Test
+    public void findCommandByIdTest() {
+        //given
+        Recipe recipe = new Recipe();
+        Optional<Recipe> optionalRecipe = Optional.of(recipe);
+        when(recipeRepository.findById(anyLong())).thenReturn(optionalRecipe );
+
+        //when
+        RecipeCommand command = recipeService.findCommandById(anyLong());
+
+        //then
+        assertEquals(recipeToRecipeCommand.convert(recipe),command);
+        verify(recipeRepository,times(1)).findById(anyLong());
+    }
+
 }

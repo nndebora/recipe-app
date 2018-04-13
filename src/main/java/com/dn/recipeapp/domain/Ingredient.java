@@ -1,11 +1,13 @@
 package com.dn.recipeapp.domain;
 
 import lombok.*;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = "recipe")
 @Entity
 public class Ingredient {
