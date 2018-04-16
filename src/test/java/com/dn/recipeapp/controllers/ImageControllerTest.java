@@ -45,7 +45,7 @@ public class ImageControllerTest {
     @Test
     public void imagePost() throws Exception {
         MockMultipartFile multipartFile =
-                new MockMultipartFile("file", "testing.txt", "text/plain", "Test App recipe".getBytes());
+                new MockMultipartFile("imagefile", "testing.txt", "text/plain", "Test App recipe".getBytes());
         this.mockMvc.perform(multipart("/recipe/1/image")
                 .file (multipartFile))
                 .andExpect(status().is3xxRedirection())
@@ -66,7 +66,8 @@ public class ImageControllerTest {
                 .andExpect(model().attributeExists("recipe"));
     }
 
-    @Test void renderRecipeImage() throws Exception{
+    @Test
+    public void renderRecipeImageTest() throws Exception{
 
         //given
         RecipeCommand recipeCommand = new RecipeCommand();
